@@ -31,16 +31,19 @@ Obiettivo: Mostrare la struttura base della lista di animali con un <details> ch
             return (
                 <div>
                     <h1>Sono il Componente</h1>
-                    <button onClick={() => setDetails(!details)}>
+                    <details onClick={() => setDetails(!details)}>
                         {details ? "Nascondi" : "Mostra"} animali
-                    </button>
-                    {details && (
-                        <ul>
-                            {animals.map((a, index) => (
-                                <li key={index}>{a}</li>
-                            ))}
-                        </ul>
-                    )}
+                    <summary> Visualizza gli animali
+                        {details && (
+                            <ul>
+                                {animals.map((a, index) => (
+                                    <li key={index}>{a}</li>
+                                ))}
+                            </ul>
+                        )}
+                        
+                    </summary> 
+                    </details>
                 </div>
             );
         };
