@@ -6,6 +6,17 @@ Un elemento <details> con titolo "Animali", che contiene:
 Una lista <ul> statica che viene creata a partire da un array di stringhe (animals) dove ciascuna stringa rappresenta il nome di un animale.
 
 Obiettivo: Mostrare la struttura base della lista di animali con un <details> che può essere espanso o contratto.
+
+
+
+
+📌 Milestone 2: Aggiungere Animali Casuali
+Trasforma l’array animals usando useState (l’array è inizialmente vuoto).
+Aggiungi un bottone "Aggiungi Animale" sopra il <details>.
+Cliccando il bottone, un animale casuale viene aggiunto alla lista.
+Usa un array predefinito per scegliere casualmente:
+
+const animalsChoices = ["Cane", "Gatto", "Pappagallo", "Cavallo", "Panda"];
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -22,27 +33,43 @@ Obiettivo: Mostrare la struttura base della lista di animali con un <details> ch
 
 
     <script type="text/babel">
-        const animals = ["pipistrello", "cane", "gatto", "canguro", "leone", "elefante"];
+        
+        const animalsChoices = ["Cane", "Gatto", "Pappagallo", "Cavallo", "Panda"];
         const { useState } = React;
 
         const Componente = () => {
             const [details, setDetails] = useState(false);
+            const [animals, setAnimals] = useState([]);
+            
+               
+        const aggiungiAnimale = () => {
+            const numeroCasuale =  Math.floor(Math.random() * animalsChoices.length);
+            const animaleCasuale = animalsChoices[numeroCasuale];
+             setAnimals([...animals, animaleCasuale]);
+        }
+
+       
 
             return (
                 <div>
                     <h1>Sono il Componente</h1>
-                    <details onClick={() => setDetails(!details)}>
-                        {details ? "Nascondi" : "Mostra"} animali
-                    <summary> Visualizza gli animali
-                        {details && (
-                            <ul>
-                                {animals.map((a, index) => (
-                                    <li key={index}>{a}</li>
-                                ))}
-                            </ul>
-                        )}
-                        
-                    </summary> 
+                     <button onClick={() => {
+                        aggiungiAnimale(); 
+                        setDetails(true);
+                    }
+                    }>
+                            Aggiungi Animale casuale alla lista
+                    </button>
+
+                    <details> 
+                        <summary> Visualizza gli animali</summary>
+                            {details && (
+                                <ul>
+                                    {animals.map((a, index) => (
+                                        <li key={index}>{a}</li>
+                                    ))}
+                                </ul>
+                            )}
                     </details>
                 </div>
             );
